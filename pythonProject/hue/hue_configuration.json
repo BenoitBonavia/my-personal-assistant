@@ -1,0 +1,94 @@
+{
+  "bridge_ip": "192.168.1.135",
+  "manager_name": "hue",
+  "manager_description": "This manager allows you to control the lights in the house",
+  "available_commands": [
+    {
+      "command_name": "turn_on_light",
+      "command_description": "Turn on the light with the given id",
+      "command_parameters": [
+        {
+          "parameter_name": "light_id",
+          "parameter_description": "The id of the light to turn on"
+        }
+      ]
+    },
+    {
+      "command_name": "turn_off_light",
+      "command_description": "Turn off the light with the given id",
+      "command_parameters": [
+        {
+          "parameter_name": "light_id",
+          "parameter_description": "The id of the light to turn off"
+        }
+      ]
+    },
+    {
+      "command_name": "turn_on_lights",
+      "command_description": "Turn on the lights with the given ids",
+      "command_parameters": [
+        {
+          "parameter_name": "light_ids",
+          "parameter_description": "The ids of the lights to turn on"
+        }
+      ]
+    },
+    {
+      "command_name": "turn_off_lights",
+      "command_description": "Turn off the lights with the given ids",
+      "command_parameters": [
+        {
+          "parameter_name": "light_ids",
+          "parameter_description": "The ids of the lights to turn off"
+        }
+      ]
+    }
+  ],
+  "hue_lights": [
+    {
+      "id": "1",
+      "room": "Salon",
+      "name": "Plafonnier"
+    },
+    {
+      "id": "2",
+      "room": "Salon",
+      "name": "Plafonnier"
+    },
+    {
+      "id": "3",
+      "room": "Salon",
+      "name": "Plafonnier"
+    },
+    {
+      "id": "4",
+      "room": "Salon",
+      "name": "Plafonnier"
+    },
+    {
+      "id": "5",
+      "room": "Salon",
+      "name": "Arrière TV"
+    },
+    {
+      "id": "6",
+      "room": "Salon",
+      "name": "Bar"
+    },
+    {
+      "id": "13",
+      "room": "Salon",
+      "name": "Filament bibliothèque"
+    },
+    {
+      "id": "14",
+      "room": "Salon",
+      "name": "Bandeau Bibliothèque 1"
+    },
+    {
+      "id": "15",
+      "room": "Salon",
+      "name": "Bandeau Bibliothèque 2"
+    }
+  ]
+}

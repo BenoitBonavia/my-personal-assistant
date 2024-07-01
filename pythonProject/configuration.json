@@ -1,0 +1,6 @@
+{
+  "trigger_phrase": "Jarvis",
+  "available_managers": [
+      "hue"
+  ]
+}

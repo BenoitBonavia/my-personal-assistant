@@ -1,0 +1,4 @@
+phue
+openai
+speechrecognition
+pyaudio

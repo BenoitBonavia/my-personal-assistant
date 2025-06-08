@@ -1,0 +1,9 @@
+phue
+openai
+speechrecognition
+pyaudio
+pyttsx3
+spotipy
+python-dotenv
+androidtv
+python-roborock

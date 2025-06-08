@@ -1,0 +1,6 @@
+{
+  "trigger_phrase": "Carson",
+  "available_managers": [
+      "hue"
+  ]
+}

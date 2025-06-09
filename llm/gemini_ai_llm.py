@@ -27,7 +27,8 @@ class GeminiAILLM(LLMInterface):
         answer = self.client.models.generate_content(
             model="gemini-2.0-flash",
             config=types.GenerateContentConfig(
-                system_instruction=self.llm_context),
+                system_instruction=self.llm_context
+            ),
             contents=request
         )
         return self.__sanitize_answer(answer.text)

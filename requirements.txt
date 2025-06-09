@@ -4,7 +4,7 @@ pyaudio
 pyttsx3~=2.98
 python-dotenv
 androidtv~=0.0.75
-google-generativeai
+google-genai
 openai~=1.84.0
 protobuf~=5.29.5
 requests~=2.32.3

@@ -4,7 +4,7 @@ from typing import Literal
 
 import requests
 
-
+"""This is the names of scripts that can be used in Home Assistant. To use it they must be called as params in use_ha_script method."""
 ScriptName = Literal['switch_on_tv_box', 'switch_off_tv_box', 'android_tv_pause', 'android_tv_play']
 
 class HomeAssistantManager:

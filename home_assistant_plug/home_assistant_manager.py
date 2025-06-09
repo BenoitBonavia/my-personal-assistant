@@ -5,7 +5,7 @@ from typing import Literal
 import requests
 
 
-ScriptName = Literal['switch_on_tv_box', 'switch_off_tv_box']
+ScriptName = Literal['switch_on_tv_box', 'switch_off_tv_box', 'android_tv_pause', 'android_tv_play']
 
 class HomeAssistantManager:
     """

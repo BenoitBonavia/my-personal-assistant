@@ -1,0 +1,32 @@
+{
+  "ip": "192.168.1.117",
+  "token": "554d55717341594a6d565a7950617147",
+  "manager_name": "roborock",
+  "manager_description": "This manager allows you to control the Roborock S7 vacuum cleaner",
+  "rooms": [
+    {
+      "id": 16,
+      "name": "Chambre"
+    },
+    {
+      "id": 17,
+      "name": "Toilettes"
+    },
+    {
+      "id": 18,
+      "name": "Salle de bain"
+    },
+    {
+      "id": 19,
+      "name": "Bureau"
+    },
+    {
+      "id": 20,
+      "name": "Salon"
+    },
+    {
+      "id": 21,
+      "name": "Cuisine"
+    }
+  ]
+}

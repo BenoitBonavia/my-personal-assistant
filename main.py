@@ -1,4 +1,5 @@
 import json
+import sys
 
 import speech_recognition as sr
 
@@ -23,8 +24,10 @@ class Main:
             managers = self.configuration['available_managers']
             self.llm.configure_services_for_prompt(managers)
             recognizer = sr.Recognizer()
-            #self.test_chat()
-            self.constant_listening(recognizer)
+            if "--chat" in sys.argv:
+                self.test_chat()
+            else:
+                self.constant_listening(recognizer)
 
     def __handle_command(self, command):
         print("Exec command " + command)

@@ -2,6 +2,7 @@ import json
 
 from home_assistant_plug.home_assistant_manager import HomeAssistantManager
 from hue_plug.hue_manager import HueManager
+from roborock_plug.roborock_manager import RoborockManager
 
 class CommandInterpreter:
     def __init__(self, configuration):
@@ -19,6 +20,9 @@ class CommandInterpreter:
         elif manager_name == 'home_assistant':
             home_assistant_manager = HomeAssistantManager()
             home_assistant_manager.handle_command(command)
+        elif manager_name == 'roborock':
+            roborock_manager = RoborockManager()
+            roborock_manager.handle_command(command)
 
     def handle_request(self, command_as_json):
         for command in command_as_json:

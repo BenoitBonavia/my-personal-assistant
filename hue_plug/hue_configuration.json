@@ -97,6 +97,12 @@
       "room": "Salon",
       "name": "LED 3 Cheminée",
       "details": "Quand on doit interragir sur la cheminée dans son ensemble il faut agir sur toutes les lumières de la cheminée"
+    },
+    {
+      "id": "27",
+      "room": "Chambre",
+      "name": "Plafonnier",
+      "details": "Ampoule du plafonnier de la chambre"
     }
   ]
 }

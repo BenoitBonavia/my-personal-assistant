@@ -1,0 +1,5 @@
+{
+  "url": "http://192.168.1.38:8123",
+  "manager_name": "home_assistant",
+  "manager_description": "This manager allows you to control the devices in Home Assistant"
+}

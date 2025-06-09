@@ -1,6 +1,7 @@
 {
-  "trigger_phrase": "Carson",
+  "trigger_phrase": "Alfred",
   "available_managers": [
-      "hue"
+    "hue",
+    "home_assistant"
   ]
 }

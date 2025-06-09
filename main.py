@@ -29,6 +29,7 @@ class Main:
     def __handle_command(self, command):
         print("Exec command " + command)
         llm_answer = self.llm.interpret_request(command)
+        print("Llm answer: " + llm_answer)
         llm_answer_as_json = json.loads(llm_answer)
         if 'commands' in llm_answer_as_json:
             print("Commands to execute: " + str(llm_answer_as_json['commands']))

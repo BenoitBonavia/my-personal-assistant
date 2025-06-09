@@ -1,5 +1,6 @@
 import json
 
+from home_assistant_plug.home_assistant_manager import HomeAssistantManager
 from hue_plug.hue_manager import HueManager
 
 class CommandInterpreter:
@@ -15,6 +16,9 @@ class CommandInterpreter:
         if manager_name == 'hue':
             hue_manager = HueManager()
             hue_manager.handle_command(command)
+        elif manager_name == 'home_assistant':
+            home_assistant_manager = HomeAssistantManager()
+            home_assistant_manager.handle_command(command)
 
     def handle_request(self, command_as_json):
         for command in command_as_json:

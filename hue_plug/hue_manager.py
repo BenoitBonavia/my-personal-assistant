@@ -24,7 +24,7 @@ class HueManager:
     def get_lights(self):
         """ Get list of lights connected to the Hue Bridge """
         available_lights = self.bridge.lights
-        print(available_lights);
+        print(available_lights)
         return available_lights
 
     def get_light(self, light_index: int):

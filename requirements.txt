@@ -8,3 +8,4 @@ google-generativeai
 openai~=1.84.0
 protobuf~=5.29.5
 requests~=2.32.3
+python-miio~=0.5.11

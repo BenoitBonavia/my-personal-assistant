@@ -2,6 +2,7 @@
   "trigger_phrase": "Alfred",
   "available_managers": [
     "hue",
-    "home_assistant"
+    "home_assistant",
+    "roborock"
   ]
 }

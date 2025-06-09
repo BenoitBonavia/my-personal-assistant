@@ -17,10 +17,11 @@ class LLMInterface(ABC):
                         }}
                     ]
                 }}
-
+                
                 Règles strictes à respecter :
                 - **Aucun texte** avant ou après le JSON. Tu dois uniquement renvoyer un objet JSON valide, **sans phrase explicative**.
                 - La liste `"commands"` peut contenir plusieurs objets commande.
+                - Un command name ne peut être que le nom d'une fonction d'un manager.
                 - Les champs `params` doivent être une liste, même si vide.
                 - Si un paramètre est une liste, elle doit être **imbriquée** dans la liste `params`.
                 - Tous les paramètres de type identifiant doivent être au format **entier** (`int`), jamais chaîne (`str`).

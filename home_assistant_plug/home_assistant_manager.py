@@ -24,6 +24,7 @@ class HomeAssistantManager:
             'Authorization': f"Bearer {self.access_token}",
             'Content-Type': 'application/json'
         }
+        print(f"Executing script: {script_name} at {url}")
         response = requests.post(url, headers=headers)
 
         if response.status_code == 200:

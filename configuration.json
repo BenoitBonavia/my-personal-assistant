@@ -1,8 +1,16 @@
 {
-  "trigger_phrase": "Alfred",
+  "trigger_phrase": "Jarvis",
   "available_managers": [
     "hue",
     "home_assistant",
     "roborock"
+  ],
+  "rooms": [
+    "Salon",
+    "Chambre",
+    "Bureau",
+    "Cuisine",
+    "Salle de bain",
+    "Toilettes"
   ]
 }

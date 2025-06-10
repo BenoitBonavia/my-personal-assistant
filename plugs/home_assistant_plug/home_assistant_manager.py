@@ -1,10 +1,13 @@
 import json
 import os
+import logging
 from typing import Literal
 
 import requests
 
 from plugs.parent_manager import ParentManager
+
+logger = logging.getLogger(__name__)
 
 """This is the names of scripts that can be used in Home Assistant. To use it they must be called as params in use_ha_script method."""
 ScriptName = Literal['switch_on_tv_box', 'switch_off_tv_box', 'android_tv_pause', 'android_tv_play']
@@ -28,12 +31,14 @@ class HomeAssistantManager(ParentManager):
             'Authorization': f"Bearer {self.access_token}",
             'Content-Type': 'application/json'
         }
-        print(f"Executing script: {script_name} at {url}")
+        logger.info("Executing script: %s at %s", script_name, url)
         response = requests.post(url, headers=headers)
 
         if response.status_code == 200:
-            print(f"Script {script_name} executed successfully.")
+            logger.info("Script %s executed successfully.", script_name)
         else:
-            print(f"Failed to execute script {script_name}. Status code: {response.status_code}")
-            print(f"Response: {response.text}")
+            logger.error(
+                "Failed to execute script %s. Status code: %s", script_name, response.status_code
+            )
+            logger.error("Response: %s", response.text)
             response.raise_for_status()

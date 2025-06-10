@@ -1,4 +1,5 @@
 import json
+import logging
 from abc import ABC, abstractmethod
 
 
@@ -42,7 +43,7 @@ class LLMInterface(ABC):
 
     def configure_services_for_prompt(self, services):
         for service in services:
-            print('Configuring service for prompt : ', service)
+            logging.getLogger(__name__).info('Configuring service for prompt : %s', service)
             self.configure_service_for_prompt(service)
 
     def configure_service_for_prompt(self, service_name):

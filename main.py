@@ -8,6 +8,8 @@ from command_interpreter import CommandInterpreter
 from llm.gemini_ai_llm import GeminiAILLM
 from speaker import Speaker
 
+logger = logging.getLogger(__name__)
+
 file_path = 'configuration.json'
 
 
@@ -31,20 +33,20 @@ class Main:
                 self.constant_listening(recognizer)
 
     def __handle_command(self, command):
-        print("Exec command " + command)
+        logger.info("Exec command %s", command)
         llm_answer = self.llm.interpret_request(command)
-        print("Llm answer: " + llm_answer)
+        logger.info("Llm answer: %s", llm_answer)
         llm_answer_as_json = json.loads(llm_answer)
         if 'commands' in llm_answer_as_json:
-            print("Commands to execute: " + str(llm_answer_as_json['commands']))
+            logger.info("Commands to execute: %s", llm_answer_as_json['commands'])
             self.ci.handle_request(llm_answer_as_json['commands'])
         self.speaker.say(llm_answer_as_json['answer'])
 
     def constant_listening(self, recognizer):
         with sr.Microphone() as source:
-            print("Calibrating microphone... Please wait.")
+            logger.info("Calibrating microphone... Please wait.")
             recognizer.adjust_for_ambient_noise(source, duration=5)
-            print("Microphone calibrated. Start speaking.")
+            logger.info("Microphone calibrated. Start speaking.")
 
             while True:
                 try:
@@ -54,11 +56,11 @@ class Main:
                         self.__handle_command(text)
 
                 except sr.WaitTimeoutError:
-                    print("Listening timed out while waiting for phrase to start")
+                    logger.warning("Listening timed out while waiting for phrase to start")
                 except sr.UnknownValueError:
-                    print("Google Speech Recognition could not understand audio")
+                    logger.warning("Google Speech Recognition could not understand audio")
                 except sr.RequestError as e:
-                    print(f"Could not request results from Google Speech Recognition service; {e}")
+                    logger.error("Could not request results from Google Speech Recognition service; %s", e)
 
     def test_chat(self):
         while True:
@@ -66,15 +68,37 @@ class Main:
             self.__handle_command(user_input)
 
 
+class ColorFormatter(logging.Formatter):
+    """Simple color formatter for console output."""
+
+    LEVEL_COLORS = {
+        logging.DEBUG: "\033[36m",
+        logging.INFO: "\033[37m",
+        logging.WARNING: "\033[33m",
+        logging.ERROR: "\033[31m",
+        logging.CRITICAL: "\033[31;1m",
+    }
+    RESET = "\033[0m"
+
+    def format(self, record):
+        color = self.LEVEL_COLORS.get(record.levelno, self.RESET)
+        fmt = color + "%(asctime)s - %(name)s - %(levelname)s - %(message)s" + self.RESET
+        formatter = logging.Formatter(fmt)
+        return formatter.format(record)
+
+
 def __setup_logging():
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler("app.log"),
-            logging.StreamHandler()
-        ]
-    )
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+
+    file_handler = logging.FileHandler("app.log")
+    file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(file_formatter)
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(ColorFormatter())
+
+    root_logger.handlers = [file_handler, stream_handler]
 
 
 

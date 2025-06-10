@@ -1,5 +1,6 @@
 import json
 import sys
+import logging
 
 import speech_recognition as sr
 
@@ -65,7 +66,20 @@ class Main:
             self.__handle_command(user_input)
 
 
+def __setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler("app.log"),
+            logging.StreamHandler()
+        ]
+    )
+
+
+
 
 if __name__ == "__main__":
+    __setup_logging()
     my_instance = Main()
     my_instance.main()

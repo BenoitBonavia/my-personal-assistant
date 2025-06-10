@@ -43,17 +43,24 @@ class LLMInterface(ABC):
     def configure_services_for_prompt(self, services):
         for service in services:
             print('Configuring service for prompt : ', service)
-            self.configure_service_for_prompt(service);
+            self.configure_service_for_prompt(service)
 
     def configure_service_for_prompt(self, service_name):
-        print(service_name + '/' + service_name + '_configuration.json')
-        with open(service_name + '_plug/' + service_name + '_configuration.json', 'r',
+        with open(self.__get_plug_configuration_path(service_name), 'r',
                   encoding='utf-8') as manager_configuration_file:
             manager_configuration = json.load(manager_configuration_file)
             self.add_configuration_file_to_prompt(manager_configuration)
-        with open(service_name + '_plug/' + service_name + '_manager.py', 'r', encoding='utf-8') as manager_file:
+        with open(self.__get_plug_manager_path(service_name), 'r', encoding='utf-8') as manager_file:
             manager = manager_file.read()
             self.add_manager_file_to_prompt(manager)
+
+    @staticmethod
+    def __get_plug_configuration_path(service_name: str) -> str:
+        return 'plugs/' + service_name + '_plug/' + service_name + '_configuration.json'
+
+    @staticmethod
+    def __get_plug_manager_path(service_name: str) -> str:
+        return 'plugs/' + service_name + '_plug/' + service_name + '_manager.py'
 
     @abstractmethod
     def add_configuration_file_to_prompt(self, configuration_file):

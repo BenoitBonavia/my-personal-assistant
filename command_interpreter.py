@@ -1,8 +1,6 @@
-import json
-
-from home_assistant_plug.home_assistant_manager import HomeAssistantManager
-from hue_plug.hue_manager import HueManager
-from roborock_plug.roborock_manager import RoborockManager
+from plugs.home_assistant_plug.home_assistant_manager import HomeAssistantManager
+from plugs.hue_plug import HueManager
+from plugs.roborock_plug.roborock_manager import RoborockManager
 
 class CommandInterpreter:
     def __init__(self, configuration):

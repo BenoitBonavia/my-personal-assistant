@@ -1,0 +1,18 @@
+[Unit]
+Description=Alfred Assistant
+After=network.target
+
+[Service]
+Type=simple
+User=benoit
+Group=audio
+WorkingDirectory=/home/benoit/my-personal-assistant
+ExecStart=/home/benoit/my-personal-assistant/venv/bin/python /home/benoit/my-personal-assistant/main.py
+Restart=always
+RestartSec=1
+Environment=GEMINI_API_KEY=AIzaSyB9VNeiUUeGF6Ahg_hFrmICd5doEPJa5Hw
+Environment=HOME_ASSISTANT_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI5NmVhNThmODc2NTk0NTgwYWU4Mjk3ZGE5ZTYxOGQ4NSIsImlhdCI6MTc0OTQ1OTE0NiwiZXhwIjoyMDY0ODE5MTQ2fQ.5K_tscrf9OxlRYr4DdTl6LL9Teoc-TNf46UBi4E7-UU
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+[Install]
+WantedBy=multi-user.target

@@ -1,7 +1,10 @@
 from phue import Bridge
 import json
+import logging
 
 from plugs.parent_manager import ParentManager
+
+logger = logging.getLogger(__name__)
 
 
 class HueManager(ParentManager):
@@ -28,7 +31,7 @@ class HueManager(ParentManager):
     def get_lights(self):
         """ Get list of lights connected to the Hue Bridge """
         available_lights = self.bridge.lights
-        print(available_lights)
+        logger.info(available_lights)
         return available_lights
 
     def get_light(self, light_index: int):
@@ -37,7 +40,7 @@ class HueManager(ParentManager):
         """
         light_index = int(light_index)
         light = self.bridge.get_light(light_index)
-        print(light)
+        logger.info(light)
         return light
 
     def turn_on_lights(self, lights_indexes: list[int]):
@@ -72,8 +75,8 @@ class HueManager(ParentManager):
         try:
             for index in lights_indexes:
                 self.bridge.set_light(index, 'bri', brightness)
-        except:
-            print("Error while setting brightness of lights " + str(lights_indexes))
+        except Exception:
+            logger.exception("Error while setting brightness of lights %s", lights_indexes)
 
     def increase_brightness(self, lights_indexes: list[int], increase_percentage):
         """
@@ -90,8 +93,8 @@ class HueManager(ParentManager):
                 current_brightness = light['state']['bri']
                 new_brightness = current_brightness + int((increase_percentage / 100) * 254)
                 self.set_lights_brightness([index], new_brightness)
-        except:
-            print("Error while increasing brightness of light " + lights_indexes)
+        except Exception:
+            logger.exception("Error while increasing brightness of light %s", lights_indexes)
 
     def decrease_lights_brightness(self, lights_indexes: list[int], decrease_percentage):
         """
@@ -108,5 +111,5 @@ class HueManager(ParentManager):
                 current_brightness = light['state']['bri']
                 new_brightness = current_brightness - int((decrease_percentage / 100) * 254)
                 self.set_lights_brightness([index], new_brightness)
-        except:
-            print("Error while decreasing brightness of light " + lights_indexes)
+        except Exception:
+            logger.exception("Error while decreasing brightness of light %s", lights_indexes)

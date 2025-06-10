@@ -1,6 +1,9 @@
+import logging
 from plugs.home_assistant_plug.home_assistant_manager import HomeAssistantManager
 from plugs.hue_plug import HueManager
 from plugs.roborock_plug.roborock_manager import RoborockManager
+
+logger = logging.getLogger(__name__)
 
 class CommandInterpreter:
     def __init__(self, configuration):
@@ -10,7 +13,7 @@ class CommandInterpreter:
         manager_name = command['manager_name']
         available_managers = self.configuration['available_managers']
         if manager_name not in available_managers:
-            print(f"Manager {manager_name} is not available")
+            logger.error("Manager %s is not available", manager_name)
             return
         if manager_name == 'hue':
             hue_manager = HueManager()

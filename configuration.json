@@ -1,5 +1,5 @@
 {
-  "assistant_name": "Jarvis",
+  "assistant_name": "Alfred",
   "available_managers": [
     "hue",
     "home_assistant",

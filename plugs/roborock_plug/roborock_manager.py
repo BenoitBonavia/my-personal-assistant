@@ -41,4 +41,5 @@ class RoborockManager(ParentManager):
         """
         Clean specific rooms by their IDs, repeat the cleaning the number_of_cleaning specified times.
         """
-        self.vacuum.segment_clean(rooms_id, number_of_cleaning)
+        rooms_id = list(map(int, rooms_id))
+        self.vacuum.segment_clean(rooms_id)

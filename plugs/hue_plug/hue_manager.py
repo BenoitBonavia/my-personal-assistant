@@ -14,7 +14,7 @@ class HueManager(ParentManager):
 
     def __init__(self, config_file='plugs/hue_plug/hue_configuration.json'):
         super().__init__()
-        self.manager_name = "Philips Hue"
+        self.manager_name = "hue"
         with open(config_file) as config_file:
             self.config = json.load(config_file)
             self.bridge = Bridge(self.config['bridge_ip'])

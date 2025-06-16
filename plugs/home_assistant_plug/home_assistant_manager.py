@@ -16,7 +16,7 @@ class HomeAssistantManager(ParentManager):
 
     def __init__(self, config_file='plugs/home_assistant_plug/home_assistant_configuration.json'):
         super().__init__()
-        self.manager_name = "Home Assistant"
+        self.manager_name = "home_assistant"
         with open(config_file) as config_file:
             self.config = json.load(config_file)
             self.ha_url = self.config['url']

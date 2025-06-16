@@ -15,7 +15,7 @@ class RoborockManager(ParentManager):
 
     def __init__(self, config_file='plugs/roborock_plug/roborock_configuration.json'):
         super().__init__()
-        self.manager_name = "Roborock"
+        self.manager_name = "roborock"
         with open(config_file) as conf_file:
             self.config = json.load(conf_file)
             self.ip = self.config.get('ip')

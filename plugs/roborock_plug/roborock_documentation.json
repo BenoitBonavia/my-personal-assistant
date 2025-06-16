@@ -1,0 +1,24 @@
+{
+    "name": "RoborockManager",
+    "description": "Manager used to control a Roborock S7 vacuum cleaner.",
+    "functions": [
+        {
+            "name": "finish_cleaning",
+            "params": [],
+            "usage": "Stop the current cleaning cycle and return the vacuum to its dock."
+        },
+        {
+            "name": "clean_entire_house",
+            "params": [],
+            "usage": "Start a full house cleaning cycle."
+        },
+        {
+            "name": "clean_room",
+            "params": [
+                "rooms_id: list[int]",
+                "number_of_cleaning: int = 1"
+            ],
+            "usage": "Clean specific rooms by their IDs, repeat the cleaning the number_of_cleaning specified times."
+        }
+    ]
+}

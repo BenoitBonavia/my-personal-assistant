@@ -4,6 +4,7 @@ import logging
 
 import speech_recognition as sr
 
+from assistant_manager import AssistantManager
 from command_interpreter import CommandInterpreter
 from llm.gemini_ai_llm import GeminiAILLM
 from speaker import Speaker
@@ -25,6 +26,10 @@ class Main:
             self.configuration = json.load(configuration_file)
             self.ci = CommandInterpreter(self.configuration)
             managers = self.configuration['available_managers']
+            if "--regenerate-doc" in sys.argv:
+                assistant_manager = AssistantManager()
+                print('Update managers documentation')
+                assistant_manager.reload_managers_llm_documentations(managers)
             self.llm.configure_services_for_prompt(managers)
             recognizer = sr.Recognizer()
             if "--chat" in sys.argv:
@@ -52,7 +57,7 @@ class Main:
                 try:
                     audio = recognizer.listen(source, timeout=0.5, phrase_time_limit=10)
                     text = recognizer.recognize_google(audio, language="fr-FR")
-                    if (self.configuration['trigger_phrase'] in text):
+                    if (self.configuration['assistant_name'] in text):
                         self.__handle_command(text)
 
                 except sr.WaitTimeoutError:
@@ -99,8 +104,6 @@ def __setup_logging():
     stream_handler.setFormatter(ColorFormatter())
 
     root_logger.handlers = [file_handler, stream_handler]
-
-
 
 
 if __name__ == "__main__":

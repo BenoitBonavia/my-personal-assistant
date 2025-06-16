@@ -37,8 +37,8 @@ class RoborockManager(ParentManager):
         """
         self.vacuum.start()
 
-    def clean_room(self, rooms_id: list[int]):
+    def clean_room(self, rooms_id: list[int], number_of_cleaning: int = 1):
         """
-        Clean a specific room using its numeric identifier.
+        Clean specific rooms by their IDs, repeat the cleaning the number_of_cleaning specified times.
         """
-        self.vacuum.segment_clean(rooms_id)
+        self.vacuum.segment_clean(rooms_id, number_of_cleaning)

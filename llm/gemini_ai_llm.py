@@ -1,6 +1,6 @@
 import os
 from llm.llm_abstract_class import LLMInterface
-from google import genai
+import google.genai as genai
 from google.genai import types
 
 

@@ -1,5 +1,5 @@
 {
-  "trigger_phrase": "Jarvis",
+  "assistant_name": "Jarvis",
   "available_managers": [
     "hue",
     "home_assistant",

@@ -1,0 +1,56 @@
+{
+    "name": "HueManager",
+    "description": "This class is used to manage the lights of the house through the Hue Bridge",
+    "functions": [
+        {
+            "name": "get_lights",
+            "params": [],
+            "usage": "Get list of lights connected to the Hue Bridge"
+        },
+        {
+            "name": "get_light",
+            "params": [
+                "light_index: int"
+            ],
+            "usage": "Get a specific light connected to the Hue Bridge by its index"
+        },
+        {
+            "name": "turn_on_lights",
+            "params": [
+                "lights_indexes: list[int]"
+            ],
+            "usage": "Turn on lights with the specified indexes\n\n        Parameters:\n        lights_indexes (int list): List of indexes of lights to turn on"
+        },
+        {
+            "name": "turn_off_lights",
+            "params": [
+                "lights_indexes: list[int]"
+            ],
+            "usage": "Turn off lights with the specified indexes\n\n        Parameters:\n        lights_indexes (int list): List of indexes of lights to turn off"
+        },
+        {
+            "name": "set_lights_brightness",
+            "params": [
+                "lights_indexes: list[int]",
+                "brightness"
+            ],
+            "usage": "Set brightness of lights with the specified indexes\n\n        Parameters:\n        light_index (int list): List of indexes of lights to set brightness\n        brightness (int): Brightness value to set (0-254)"
+        },
+        {
+            "name": "increase_brightness",
+            "params": [
+                "lights_indexes: list[int]",
+                "increase_percentage"
+            ],
+            "usage": "Increase brightness of lights with the specified indexes\n\n        Parameters:\n        lights_indexes (int list): List of index of all the lights to increase brightness\n        increase_percentage (int): Percentage to increase brightness"
+        },
+        {
+            "name": "decrease_lights_brightness",
+            "params": [
+                "lights_indexes: list[int]",
+                "decrease_percentage"
+            ],
+            "usage": "Decrease brightness of lights with the specified indexes\n\n        Parameters:\n        lights_indexes (int list): List of index of all the lights to decrease brightness\n        decrease_percentage (int): Percentage to decrease brightness"
+        }
+    ]
+}

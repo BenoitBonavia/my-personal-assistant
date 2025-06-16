@@ -1,0 +1,84 @@
+# My Personal Assistant
+
+---
+
+## First of all
+
+This project have been initiated for a personnal use, but it can be used by anyone. Every contribution is welcome
+
+## Explanations
+
+The concept is simple : create what we call a "plug" which is an integration of an API or a service. These plugs must be documented, so an LLM understand the purpose of it. We will next listen for commands, give it to the llm so it can be interpreted, and the LLM will return a JSON that we will use to call the functions with correct params to answer your demand.<br>
+
+<br>
+Each plug contains a manager which is the file that will manage the commands and a configuration file which is a JSON file that contains the configuration of the plug. It can contains everything is required for the plug.
+
+### Available plugs
+
+For now here is the available integrations :
+
+#### Philips Hue
+
+For controlling your Philips Hue lights, you can use the `hue` plug.
+Here is the anderstood commands :
+
+| Command | User case |
+| --- | --- |
+| `turn_on_lights` | Turn on one or multiple lights |
+| `turn_off_lights` | Turn off one or multiple lights |
+| `set_lights_brightness` | Set the brightness of one or multiple lights |
+| `increase_brightness` | Increase the brightness of one or multiple lights of a specific percentage |
+| `decrease_brightness` | Decrease the brightness of one or multiple lights of a specific percentage |
+
+**Configuration file**
+
+In the case of the the hue plug, the configuration file contains :
+
+| Key | Description |
+| --- | --- |
+| `bridge_ip` | The IP address of the Philips Hue bridge |
+| `manager_name`| Which is the name of the manager, that should not be changed |
+| `manager_description` | This is one more time a little description of the usage of the manager so the llm anderstand better when he can use it |
+| `hue_lights` | This is an array of all the lights that can be controlled by the plug. Each light will contain `id`, `room`, `name` and `details`. You can add basically everything you think necessary in details (if a light is paired with another etc...)
+
+#### Home Assistant
+
+For controlling your Home Assistant environment, you can use the `home_assistant` plug.
+Her is the anderstood commands :
+
+| Command | User case |
+| --- | --- |
+| `use_ha_script` | It runs a specific script of your home assistant |
+
+**Configuration file**
+
+In the case of the home assistant plug, the configuration file contains :
+
+| Key | Description |
+| --- | --- |
+| `url` | The URL of your Home Assistant instance |
+| `manager_name`| Which is the name of the manager, that should not be changed |
+| `manager_description` | This is one more time a little description of the usage of the manager so the llm anderstand better when he can use it |
+
+#### Roborock
+
+For controlling your Roborock vacuum cleaner, you can use the `roborock` plug.
+Here is the anderstood commands :
+
+| Command | User case |
+| --- | --- |
+| `finish_cleaning` | It will finish the current cleaning task |
+| `clean_entire_house` | It will start a cleaning task of the entire house |
+| `clean_room` | It will start cleaning the specified rooms |
+
+**Configuration file**
+
+In the case of the roborock plug, the configuration file contains :
+
+| Key | Description |
+| --- | --- |
+| `ip` | The IP address of your Roborock vacuum cleaner |
+| `token` | The token of your Roborock vacuum cleaner |
+| `manager_name`| Which is the name of the manager, that should not be changed |
+| `manager_description` | This is one more time a little description of the usage of the manager so the llm anderstand better when he can use it |
+| `rooms` | This is an array of all the rooms that can be cleaned by the plug. Each room will contain `id`, `name`. **The ids are set by roborock directly you'll have to find them, it generally start with the id 16** |

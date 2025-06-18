@@ -6,11 +6,11 @@
   "rooms": [
     {
       "id": 16,
-      "name": "Chambre"
+      "name": "Toilettes"
     },
     {
       "id": 17,
-      "name": "Toilettes"
+      "name": "Salon"
     },
     {
       "id": 18,
@@ -22,7 +22,7 @@
     },
     {
       "id": 20,
-      "name": "Salon"
+      "name": "Chambre"
     },
     {
       "id": 21,

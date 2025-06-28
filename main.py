@@ -7,6 +7,8 @@ import speech_recognition as sr
 from assistant_manager import AssistantManager
 from command_interpreter import CommandInterpreter
 from llm.gemini_ai_llm import GeminiAILLM
+from plugs.plex_plug.plex_manager import PlexManager
+from plugs.roborock_plug.roborock_configurator import RoborockConfigurator
 from speaker import Speaker
 
 logger = logging.getLogger(__name__)

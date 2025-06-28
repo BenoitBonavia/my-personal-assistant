@@ -20,7 +20,8 @@ class HueManager(ParentManager):
             self.bridge = Bridge(self.config['bridge_ip'])
             self.bridge.connect()
 
-    def __handle_lights_indexes(self, lights_indexes: list[int]):
+    @staticmethod
+    def __handle_lights_indexes(lights_indexes: list[int]):
         """
         Handle the case where a single index is provided as an int instead of a list
         """

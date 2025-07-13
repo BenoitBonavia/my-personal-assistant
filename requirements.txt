@@ -10,3 +10,4 @@ protobuf
 requests
 python-miio==0.6.0.dev0
 plexapi
+pydantic

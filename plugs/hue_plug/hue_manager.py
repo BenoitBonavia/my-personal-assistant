@@ -61,7 +61,7 @@ class HueManager(ParentManager):
         Turn off lights with the specified indexes
 
         Parameters:
-        lights_indexes (int list): List of indexes of lights to turn off
+        lights_indexes (int list): List of indexes of lights to turn off, it is required. To turn off all the lights, use all the ids
         """
         lights_indexes = self.__handle_lights_indexes(lights_indexes)
         self.bridge.set_light(lights_indexes, 'on', False)

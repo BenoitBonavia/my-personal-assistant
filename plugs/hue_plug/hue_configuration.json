@@ -99,6 +99,16 @@
       "details": "Quand on doit interragir sur la cheminée dans son ensemble il faut agir sur toutes les lumières de la cheminée"
     },
     {
+      "id": "24",
+      "room": "Salon",
+      "name": "Edison Bibliothèque 1"
+    },
+    {
+      "id": "25",
+      "room": "Salon",
+      "name": "Edison Bibliothèque 2"
+    },
+    {
       "id": "27",
       "room": "Chambre",
       "name": "Plafonnier",

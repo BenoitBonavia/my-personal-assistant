@@ -2,6 +2,7 @@ from phue import Bridge
 import json
 import logging
 
+from plugs.hue_plug.hue_configuration_type import HueConfigurationType, HueLightConfigurationType
 from plugs.parent_manager import ParentManager
 
 logger = logging.getLogger(__name__)
@@ -16,8 +17,9 @@ class HueManager(ParentManager):
         super().__init__()
         self.manager_name = "hue"
         with open(config_file) as config_file:
-            self.config = json.load(config_file)
-            self.bridge = Bridge(self.config['bridge_ip'])
+            data = json.load(config_file)
+            self.config = HueConfigurationType(**data)
+            self.bridge = Bridge(self.config.bridge_ip)
             self.bridge.connect()
 
     @staticmethod
@@ -114,3 +116,16 @@ class HueManager(ParentManager):
                 self.set_lights_brightness([index], new_brightness)
         except Exception:
             logger.exception("Error while decreasing brightness of light %s", lights_indexes)
+
+    def scan_hue_devices_not_configured(self):
+        """
+        Scan hue devices and compare the id list to the ids configured in the hue_manager configuration
+        """
+        configured_lights_ids = [light.id for light in self.config.hue_lights]
+
+        all_lights = self.bridge.get_light_objects('id')  # dict {id: Light}
+
+        for light_id, light in all_lights.items():
+            if str(light_id) not in configured_lights_ids:
+                print(f'Unconfigured light: {light_id} with name : {light.name}')
+

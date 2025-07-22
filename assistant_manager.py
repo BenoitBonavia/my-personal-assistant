@@ -66,9 +66,6 @@ class AssistantManager(ParentManager):
                     json.dump(documentation.__dict__, f, indent=4, ensure_ascii=False)
                 logger.info(f"Documentation written to {output_path}")
 
-
-
-
         except FileNotFoundError:
             logger.error(f"Manager file {manager_file_path} not found.")
             return None

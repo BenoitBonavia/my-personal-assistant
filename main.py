@@ -1,14 +1,11 @@
-import json
 import sys
 import logging
+import json
 
 import speech_recognition as sr
 
-from assistant_manager import AssistantManager
 from command_interpreter import CommandInterpreter
-from llm.gemini_ai_llm import GeminiAILLM
-from plugs.plex_plug.plex_manager import PlexManager
-from plugs.roborock_plug.roborock_configurator import RoborockConfigurator
+from services.command_understander import CommandUnderstander
 from speaker import Speaker
 
 logger = logging.getLogger(__name__)
@@ -18,32 +15,23 @@ file_path = 'configuration.json'
 
 class Main:
     def __init__(self):
-        self.configuration = None
-        self.llm = GeminiAILLM()
-        self.ci = None
-        self.speaker = Speaker()
-
-    def main(self):
         with open(file_path, 'r', encoding='utf-8') as configuration_file:
             self.configuration = json.load(configuration_file)
-            self.ci = CommandInterpreter(self.configuration)
-            managers = self.configuration['available_managers']
-            if "--regenerate-doc" in sys.argv:
-                assistant_manager = AssistantManager()
-                print('Update managers documentation')
-                assistant_manager.reload_managers_llm_documentations(managers)
-            self.llm.configure_services_for_prompt(managers)
-            recognizer = sr.Recognizer()
-            if "--chat" in sys.argv:
-                self.test_chat()
-            else:
-                self.constant_listening(recognizer)
+            self.ci = None
+            self.speaker = Speaker()
+            self.command_understanding = CommandUnderstander(configuration=self.configuration)
+
+    def main(self):
+        self.ci = CommandInterpreter(self.configuration)
+
+        recognizer = sr.Recognizer()
+        if "--chat" in sys.argv:
+            self.test_chat()
+        else:
+            self.constant_listening(recognizer)
 
     def __handle_command(self, command):
-        logger.info("Exec command %s", command)
-        llm_answer = self.llm.interpret_request(command)
-        logger.info("Llm answer: %s", llm_answer)
-        llm_answer_as_json = json.loads(llm_answer)
+        llm_answer_as_json = self.command_understanding.interpret_and_jsonify(command_phrase=command)
         if 'commands' in llm_answer_as_json:
             logger.info("Commands to execute: %s", llm_answer_as_json['commands'])
             self.ci.handle_request(llm_answer_as_json['commands'])

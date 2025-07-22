@@ -6,6 +6,7 @@ import speech_recognition as sr
 
 from command_interpreter import CommandInterpreter
 from services.command_understander import CommandUnderstander
+from services.sentry_service import SentryService
 from speaker import Speaker
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ class Main:
 
     def main(self):
         self.ci = CommandInterpreter(self.configuration)
-
+        SentryService()
         recognizer = sr.Recognizer()
         if "--chat" in sys.argv:
             self.test_chat()

@@ -2,12 +2,17 @@ import os
 from llm.llm_abstract_class import LLMInterface
 import google.genai as genai
 from google.genai import types
+from datetime import datetime, timedelta
+import logging
 
+logger = logging.getLogger(__name__)
 
 class GeminiAILLM(LLMInterface):
 
     def __init__(self):
         self.client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+        self.chat = None
+        self.chat_initialization_timestamp = None
 
     def add_configuration_file_to_prompt(self, configuration_file):
         self.llm_context = self.llm_context + f"""
@@ -24,14 +29,20 @@ class GeminiAILLM(LLMInterface):
         """
 
     def interpret_request(self, request):
-        answer = self.client.models.generate_content(
-            model="gemini-2.0-flash",
-            config=types.GenerateContentConfig(
-                system_instruction=self.llm_context
-            ),
-            contents=request
-        )
+        self.init_chat_if_needed()
+        answer = self.chat.send_message(request)
         return self.__sanitize_answer(answer.text)
+
+    def init_chat_if_needed(self):
+        if self.chat is None or (datetime.now() - self.chat_initialization_timestamp) > timedelta(hours=24):
+            logger.info("Initializing chat")
+            self.chat = self.client.chats.create(
+                model="gemini-2.0-flash",
+                config=types.GenerateContentConfig(
+                    system_instruction=self.llm_context
+                ),
+            )
+            self.chat_initialization_timestamp = datetime.now()
 
     @staticmethod
     def __sanitize_answer(text_answer):

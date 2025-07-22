@@ -29,7 +29,6 @@ class AssistantManager(ParentManager):
             self.__generate_manager_documentation(manager)
 
 
-
     @staticmethod
     def __generate_manager_documentation(manager_name):
         """

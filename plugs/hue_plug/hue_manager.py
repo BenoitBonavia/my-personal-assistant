@@ -90,12 +90,9 @@ class HueManager(ParentManager):
         increase_percentage (int): Percentage to increase brightness
         """
         lights_indexes = self.__handle_lights_indexes(lights_indexes)
+        inc = int(increase_percentage / 100 * 254)
         try:
-            for index in lights_indexes:
-                light = self.bridge.get_light(index)
-                current_brightness = light['state']['bri']
-                new_brightness = current_brightness + int((increase_percentage / 100) * 254)
-                self.set_lights_brightness([index], new_brightness)
+            self.bridge.set_light(lights_indexes, 'bri_inc', inc)
         except Exception:
             logger.exception("Error while increasing brightness of light %s", lights_indexes)
 
@@ -108,12 +105,9 @@ class HueManager(ParentManager):
         decrease_percentage (int): Percentage to decrease brightness
         """
         lights_indexes = self.__handle_lights_indexes(lights_indexes)
+        inc = -int(decrease_percentage / 100 * 254)
         try:
-            for index in lights_indexes:
-                light = self.bridge.get_light(index)
-                current_brightness = light['state']['bri']
-                new_brightness = current_brightness - int((decrease_percentage / 100) * 254)
-                self.set_lights_brightness([index], new_brightness)
+            self.bridge.set_light(lights_indexes, 'bri_inc', inc)
         except Exception:
             logger.exception("Error while decreasing brightness of light %s", lights_indexes)
 

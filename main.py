@@ -18,12 +18,11 @@ class Main:
     def __init__(self):
         with open(file_path, 'r', encoding='utf-8') as configuration_file:
             self.configuration = json.load(configuration_file)
-            self.ci = None
+            self.ci = CommandInterpreter(self.configuration)
             self.speaker = Speaker()
             self.command_understanding = CommandUnderstander(configuration=self.configuration)
 
     def main(self):
-        self.ci = CommandInterpreter(self.configuration)
         SentryService()
         recognizer = sr.Recognizer()
         if "--chat" in sys.argv:

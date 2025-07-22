@@ -5,7 +5,7 @@ from llm.gemini_ai_llm import GeminiAILLM
 
 logger = logging.getLogger(__name__)
 
-class CommandUnderstander():
+class CommandUnderstander:
     def __init__(self, configuration):
         managers = configuration['available_managers']
         self.llm = GeminiAILLM()

@@ -15,3 +15,5 @@ class ParentManager:
             method_to_call(*params)
         except AttributeError:
             logger.error("%s manager has no method named %s", self.manager_name, command_name)
+        except TypeError:
+            logger.error("%s throw an error because params passed to %s don't fit with the function signature", self.manager_name, command_name)

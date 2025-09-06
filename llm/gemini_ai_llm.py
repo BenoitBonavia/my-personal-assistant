@@ -37,7 +37,7 @@ class GeminiAILLM(LLMInterface):
         if self.chat is None or (datetime.now() - self.chat_initialization_timestamp) > timedelta(hours=24):
             logger.info("Initializing chat")
             self.chat = self.client.chats.create(
-                model="gemini-2.0-flash",
+                model="gemini-2.5-flash-lite",
                 config=types.GenerateContentConfig(
                     system_instruction=self.llm_context
                 ),

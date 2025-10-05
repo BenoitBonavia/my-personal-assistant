@@ -1,6 +1,5 @@
 import os
 from openai import OpenAI
-import json
 
 from llm.llm_abstract_class import LLMInterface
 

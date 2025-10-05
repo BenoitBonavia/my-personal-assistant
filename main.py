@@ -6,10 +6,13 @@ import speech_recognition as sr
 
 from command_interpreter import CommandInterpreter
 from services.command_understander import CommandUnderstander
+from services.file_logger import FileLoggerService
 from services.sentry_service import SentryService
 from speaker import Speaker
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
+file_logger = FileLoggerService("logs/stt.log")
 
 file_path = 'configuration.json'
 
@@ -46,7 +49,11 @@ class Main:
             while True:
                 try:
                     audio = recognizer.listen(source, timeout=0.5, phrase_time_limit=10)
+                    start = datetime.now()
                     text = recognizer.recognize_google(audio, language="fr-FR")
+                    end = datetime.now()
+                    delta = end - start
+                    file_logger.info(f"{end} transcript command in {delta.total_seconds() * 1000} milliseconds", )
                     if (self.configuration['assistant_name'] in text):
                         self.__handle_command(text)
 

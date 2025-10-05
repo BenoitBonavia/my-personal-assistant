@@ -20,6 +20,6 @@ class CommandUnderstander:
         llm_answer = self.llm.interpret_request(command_phrase)
         end = datetime.now()
         delta = end - start
-        file_logger.info(f"{end} interpret \"{command_phrase}\" in {delta.total_seconds() * 1000} milliseconds", )
+        file_logger.info(f"{end} interpret \"{command_phrase}\" in {delta.total_seconds() * 1000} milliseconds")
         logger.info("Llm answer: %s", llm_answer)
         return json.loads(llm_answer)

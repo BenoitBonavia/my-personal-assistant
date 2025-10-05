@@ -27,7 +27,7 @@ class OpenAiLLM(LLMInterface):
     def interpret_request(self, request):
         messages = list(self.base_prompt)
         messages.append({"role": "user", "content": request})
-        response = self.client.chat.completions.create(model="gpt-5-nano", messages=messages,
-                                                       temperature=0)
+        # Note: gpt-5-nano does not accept an explicit temperature; only the default (1) is supported.
+        response = self.client.chat.completions.create(model="gpt-5-nano", messages=messages)
         answer = response.choices[0].message.content
         return answer

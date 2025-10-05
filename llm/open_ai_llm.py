@@ -27,7 +27,7 @@ class OpenAiLLM(LLMInterface):
     def interpret_request(self, request):
         messages = list(self.base_prompt)
         messages.append({"role": "user", "content": request})
-        response = self.client.chat.completions.create(model="gpt-4.1-nano", messages=messages,
+        response = self.client.chat.completions.create(model="gpt-5-nano", messages=messages,
                                                        temperature=0)
         answer = response.choices[0].message.content
         return answer

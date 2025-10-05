@@ -19,7 +19,7 @@ class GrokAiLLM(LLMInterface):
 
     _session: Optional[requests.Session] = None
     _session_lock = threading.Lock()
-    _session_api_key: str | None = None
+    _session_api_key: str = None
 
     API_URL = "https://api.x.ai/v1/messages"
     MODEL = "grok-2-mini"

@@ -30,7 +30,7 @@ class OpenAiLLM(LLMInterface):
 
         # Note: gpt-5-nano does not accept an explicit temperature; only the default (1) is supported.
         response = self.client.chat.completions.create(
-            model="gpt-5-nano",
+            model="gpt-4.1-nano",
             messages=self.messages
         )
 

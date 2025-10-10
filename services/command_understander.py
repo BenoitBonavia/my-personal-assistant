@@ -13,7 +13,7 @@ file_logger = FileLoggerService("logs/command_log.log")
 class CommandUnderstander:
     def __init__(self, configuration):
         managers = configuration['available_managers']
-        self.llm = OpenAiLLM()
+        self.llm = GeminiAILLM()
         self.llm.configure_services_for_prompt(managers)
 
     def interpret_and_jsonify(self, command_phrase):

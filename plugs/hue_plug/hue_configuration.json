@@ -169,7 +169,7 @@
             "name": "Plafonnier Entr\u00e9e 1",
             "room": "Entr\u00e9e",
             "paired": [
-              29
+                29
             ]
         },
         {
@@ -177,7 +177,34 @@
             "name": "Plafonnier Entr\u00e9e 2",
             "room": "Entr\u00e9e",
             "paired": [
-              28
+                28
+            ]
+        },
+        {
+            "id": "30",
+            "name": "Plafonnier Cuisine 3",
+            "room": "Cuisine",
+            "paired": [
+                31,
+                32
+            ]
+        },
+        {
+            "id": "31",
+            "name": "Plafonnier Cuisine 2",
+            "room": "Cuisine",
+            "paired": [
+                30,
+                32
+            ]
+        },
+        {
+            "id": "32",
+            "name": "Plafonnier Cuisine 2",
+            "room": "Cuisine",
+            "paired": [
+                30,
+                31
             ]
         }
     ]

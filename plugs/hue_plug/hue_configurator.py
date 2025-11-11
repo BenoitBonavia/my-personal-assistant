@@ -83,6 +83,7 @@ class HueConfigurator(ParentConfigurator):
 
         if paired:
             new_light_entry["paired"] = paired
+            self._ensure_bidirectional_pairing(light_id, paired)
 
         self.configured_lights.append(new_light_entry)
         print(f"Light {light_id} configured as '{name}' in room '{room}'.")
@@ -186,6 +187,27 @@ class HueConfigurator(ParentConfigurator):
 
             unique_ids = list(dict.fromkeys(selected_ids))
             return [int(light_id) for light_id in unique_ids]
+
+    def _ensure_bidirectional_pairing(self, current_light_id: str, paired_ids: List[int]) -> None:
+        """Update configured lights so pairing relationships are symmetrical."""
+        current_id_int = int(current_light_id)
+
+        for paired_id in paired_ids:
+            paired_id_str = str(paired_id)
+            for light in self.configured_lights:
+                if str(light.get("id")) != paired_id_str:
+                    continue
+
+                peers = light.setdefault("paired", [])
+                if current_id_int not in peers:
+                    peers.append(current_id_int)
+                break
+            else:
+                logger.warning(
+                    "Configured light %s references unknown paired id %s",
+                    current_light_id,
+                    paired_id_str,
+                )
 
 
 def main() -> None:

@@ -163,6 +163,22 @@
             "id": "26",
             "name": "Ruban led miroir",
             "room": "Salon"
+        },
+        {
+            "id": "28",
+            "name": "Plafonnier Entr\u00e9e 1",
+            "room": "Entr\u00e9e",
+            "paired": [
+              29
+            ]
+        },
+        {
+            "id": "29",
+            "name": "Plafonnier Entr\u00e9e 2",
+            "room": "Entr\u00e9e",
+            "paired": [
+              28
+            ]
         }
     ]
 }

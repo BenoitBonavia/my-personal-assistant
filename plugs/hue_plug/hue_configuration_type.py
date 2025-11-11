@@ -1,4 +1,5 @@
 from typing import Optional
+from typing import List
 
 from pydantic import BaseModel
 
@@ -6,7 +7,7 @@ class HueLightConfigurationType(BaseModel):
     id: str
     room: str
     name: str
-    paired: list[str]
+    paired: List[int] = []
     details: Optional[str] = None
 
 class HueConfigurationType(BaseModel):

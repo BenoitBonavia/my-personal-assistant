@@ -1,7 +1,7 @@
 {
   "bridge_ip": "192.168.1.135",
   "manager_name": "hue",
-  "manager_description": "This manager allows you to control the lights in the house, the paired elements MUST be handled together",
+  "manager_description": "This manager allows you to control the lights in the house, the paired elements MUST be handled together. If you want to interact with a room or a tag, interact with ALL the lights of this room or tag",
   "hue_lights": [
     {
       "id": "1",

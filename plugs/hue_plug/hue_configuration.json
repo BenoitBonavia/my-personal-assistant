@@ -1,31 +1,31 @@
 {
   "bridge_ip": "192.168.1.135",
   "manager_name": "hue",
-  "manager_description": "This manager allows you to control the lights in the house",
+  "manager_description": "This manager allows you to control the lights in the house, the paired elements MUST be handled together",
   "hue_lights": [
     {
       "id": "1",
       "room": "Salon",
       "name": "Ampoule 1 du plafonnier",
-      "details": "Ampoule constituante du plafonnier, quand on veut interragir sur le plafonnier il faut agir sur ses 4 ampoules"
+      "paired": [2, 3, 4]
     },
     {
       "id": "2",
       "room": "Salon",
       "name": "Ampoule 2 du plafonnier",
-      "details": "Ampoule constituante du plafonnier, quand on veut interragir sur le plafonnier il faut agir sur ses 4 ampoules"
+      "paired":  [1, 3, 4]
     },
     {
       "id": "3",
       "room": "Salon",
       "name": "Ampoule 3 du plafonnier",
-      "details": "Ampoule constituante du plafonnier, quand on veut interragir sur le plafonnier il faut agir sur ses 4 ampoules"
+      "paired": [1, 2, 4]
     },
     {
       "id": "4",
       "room": "Salon",
       "name": "Ampoule 4 du plafonnier",
-      "details": "Ampoule constituante du plafonnier, quand on veut interragir sur le plafonnier il faut agir sur ses 4 ampoules"
+      "paired": [1, 2, 3]
     },
     {
       "id": "5",
@@ -48,55 +48,55 @@
       "id": "14",
       "room": "Salon",
       "name": "Bandeau Bibliothèque",
-      "details": "Quand on doit interragir sur la bibliothèque dans son ensemble il faut agir sur toutes les lumières de la bibliothèque, ce qui inclut les bandeaux et les filaments."
+      "paired": [15]
     },
     {
       "id": "15",
       "room": "Salon",
       "name": "Bandeau Bibliothèque",
-      "details": "Quand on doit interragir sur la bibliothèque dans son ensemble il faut agir sur toutes les lumières de la bibliothèque, ce qui inclut les bandeaux et les filaments."
+      "paired": [14]
     },
     {
       "id": "16",
       "room": "Cuisine",
       "name": "Edison bar 1",
-      "details": "Quand on doit interragir sur le bar dans son ensemble il faut agir sur toutes les lumières du bar, ce qui inclut les ampoules Edison et les bandeaux."
+      "paired": [17, 18, 19]
     },
     {
       "id": "17",
       "room": "Cuisine",
       "name": "Edison bar 2",
-      "details": "Quand on doit interragir sur le bar dans son ensemble il faut agir sur toutes les lumières du bar, ce qui inclut les ampoules Edison et les bandeaux."
+      "paired": [16, 18, 19]
     },
     {
       "id": "18",
       "room": "Cuisine",
       "name": "Edison bar 3",
-      "details": "Quand on doit interragir sur le bar dans son ensemble il faut agir sur toutes les lumières du bar, ce qui inclut les ampoules Edison et les bandeaux."
+      "paired": [16, 17, 19]
     },
     {
       "id": "19",
       "room": "Cuisine",
       "name": "Edison bar 4",
-        "details": "Quand on doit interragir sur le bar dans son ensemble il faut agir sur toutes les lumières du bar, ce qui inclut les ampoules Edison et les bandeaux."
+      "paired": [16, 17, 18]
     },
     {
       "id": "21",
       "room": "Salon",
       "name": "LED 1 Cheminée",
-      "details": "Quand on doit interragir sur la cheminée dans son ensemble il faut agir sur toutes les lumières de la cheminée"
+      "paired": [22, 23]
     },
     {
       "id": "22",
       "room": "Salon",
       "name": "LED 2 Cheminée",
-      "details": "Quand on doit interragir sur la cheminée dans son ensemble il faut agir sur toutes les lumières de la cheminée"
+      "paired": [21, 23]
     },
     {
       "id": "23",
       "room": "Salon",
       "name": "LED 3 Cheminée",
-      "details": "Quand on doit interragir sur la cheminée dans son ensemble il faut agir sur toutes les lumières de la cheminée"
+      "paired": [21, 22]
     },
     {
       "id": "24",

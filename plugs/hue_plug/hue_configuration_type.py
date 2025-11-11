@@ -6,6 +6,7 @@ class HueLightConfigurationType(BaseModel):
     id: str
     room: str
     name: str
+    paired: list[str]
     details: Optional[str] = None
 
 class HueConfigurationType(BaseModel):

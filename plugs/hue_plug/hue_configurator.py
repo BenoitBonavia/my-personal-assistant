@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class HueConfigurator(ParentConfigurator):
     """Interactive configurator used to register new Hue lights."""
 
-    def __init__(self, config_file: str = "plugs/hue_plug/hue_configuration.json") -> None:
+    def __init__(self, config_file: str = "hue_configuration.json") -> None:
         super().__init__(config_file)
         self.config.setdefault("hue_lights", [])
         self._blinking_threads: Dict[str, Tuple[threading.Event, threading.Thread]] = {}
@@ -126,20 +126,32 @@ class HueConfigurator(ParentConfigurator):
 
     def _prompt_room(self) -> str:
         rooms = sorted({light["room"] for light in self.configured_lights if "room" in light})
-        if not rooms:
-            raise ValueError("No existing rooms found in the configuration. Cannot proceed.")
 
-        print("Available rooms:")
-        for index, room in enumerate(rooms, start=1):
-            print(f"  {index}. {room}")
+        if rooms:
+            print("Available rooms:")
+            for index, room in enumerate(rooms, start=1):
+                print(f"  {index}. {room}")
+            print(f"  {len(rooms) + 1}. Add a new room")
 
+            while True:
+                choice = input("Select the room by entering its number: ").strip()
+                if choice.isdigit():
+                    index = int(choice)
+                    if 1 <= index <= len(rooms):
+                        return rooms[index - 1]
+                    if index == len(rooms) + 1:
+                        return self._prompt_new_room_name()
+                print("Invalid selection. Please choose one of the listed options.")
+
+        print("No rooms found in the configuration. Please enter a new room name.")
+        return self._prompt_new_room_name()
+
+    def _prompt_new_room_name(self) -> str:
         while True:
-            choice = input("Select the room by entering its number: ").strip()
-            if choice.isdigit():
-                index = int(choice)
-                if 1 <= index <= len(rooms):
-                    return rooms[index - 1]
-            print("Invalid selection. Please choose one of the listed room numbers.")
+            room_name = input("Enter the name of the new room: ").strip()
+            if room_name:
+                return room_name
+            print("Room name cannot be empty. Please try again.")
 
     def _prompt_paired(self, current_light_id: str) -> List[int]:
         options = {

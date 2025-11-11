@@ -4,6 +4,7 @@ from __future__ import annotations
 import logging
 import threading
 from typing import Dict, List, Tuple
+from pathlib import Path
 
 from phue import Bridge
 
@@ -14,6 +15,9 @@ logger = logging.getLogger(__name__)
 
 class HueConfigurator(ParentConfigurator):
     def __init__(self, config_file: str = "hue_configuration.json") -> None:
+        # Resolve the config path relative to this file so it works regardless of the current working directory
+        if not config_file or config_file == "hue_configuration.json":
+            config_file = str(Path(__file__).with_name("hue_configuration.json"))
         super().__init__(config_file)
         self.config.setdefault("hue_lights", [])
         self._blinking_threads: Dict[str, Tuple[threading.Event, threading.Thread]] = {}
@@ -184,6 +188,11 @@ class HueConfigurator(ParentConfigurator):
             return [int(light_id) for light_id in unique_ids]
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Entry point used by the configurator launcher."""
     configurator = HueConfigurator()
     configurator.run()
+
+
+if __name__ == "__main__":
+    main()

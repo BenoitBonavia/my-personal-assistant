@@ -44,11 +44,21 @@ class Main:
         with sr.Microphone() as source:
             logger.info("Calibrating microphone... Please wait.")
             recognizer.adjust_for_ambient_noise(source, duration=5)
+            # Increase sensitivity for distant speech
+            # Disable dynamic adjustment so our manual threshold stays fixed
+            recognizer.dynamic_energy_threshold = False
+            # Lower the threshold to be more sensitive to quieter voices
+            # (typical values range widely; keeping a sensible floor)
+            current_threshold = recognizer.energy_threshold
+            recognizer.energy_threshold = max(50, int(current_threshold * 0.6))
+            # Make VAD less strict so short gaps don't cut speech
+            recognizer.pause_threshold = 0.5
+            recognizer.non_speaking_duration = 0.2
             logger.info("Microphone calibrated. Start speaking.")
 
             while True:
                 try:
-                    audio = recognizer.listen(source, timeout=0.5, phrase_time_limit=10)
+                    audio = recognizer.listen(source, timeout=2, phrase_time_limit=12)
                     start = datetime.now()
                     text = recognizer.recognize_google(audio, language="fr-FR")
                     end = datetime.now()

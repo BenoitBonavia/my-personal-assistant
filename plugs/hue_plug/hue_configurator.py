@@ -2,7 +2,8 @@
 from __future__ import annotations
 
 import logging
-from typing import Dict, List
+import threading
+from typing import Dict, List, Tuple
 
 from phue import Bridge
 
@@ -17,6 +18,7 @@ class HueConfigurator(ParentConfigurator):
     def __init__(self, config_file: str = "plugs/hue_plug/hue_configuration.json") -> None:
         super().__init__(config_file)
         self.config.setdefault("hue_lights", [])
+        self._blinking_threads: Dict[str, Tuple[threading.Event, threading.Thread]] = {}
 
         bridge_ip = self.config.get("bridge_ip")
         if not bridge_ip:
@@ -84,12 +86,32 @@ class HueConfigurator(ParentConfigurator):
         print(f"Light {light_id} configured as '{name}' in room '{room}'.")
 
     def _start_blinking(self, light_id: str) -> None:
-        try:
-            self.bridge.set_light(int(light_id), "alert", "lselect")
-        except Exception:  # pragma: no cover - depends on hardware
-            logger.exception("Unable to start blinking for light %s", light_id)
+        if light_id in self._blinking_threads:
+            return
+
+        stop_event = threading.Event()
+
+        def _blink_loop() -> None:
+            while not stop_event.is_set():
+                try:
+                    self.bridge.set_light(int(light_id), "alert", "lselect")
+                except Exception:  # pragma: no cover - depends on hardware
+                    logger.exception("Unable to trigger blinking for light %s", light_id)
+                    break
+                stop_event.wait(10)
+
+        thread = threading.Thread(target=_blink_loop, name=f"hue-blink-{light_id}", daemon=True)
+        self._blinking_threads[light_id] = (stop_event, thread)
+        thread.start()
 
     def _stop_blinking(self, light_id: str) -> None:
+        stop_event, thread = self._blinking_threads.pop(light_id, (None, None))
+
+        if stop_event is not None:
+            stop_event.set()
+        if thread is not None:
+            thread.join(timeout=2)
+
         try:
             self.bridge.set_light(int(light_id), "alert", "none")
         except Exception:  # pragma: no cover - depends on hardware

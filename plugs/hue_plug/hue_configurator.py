@@ -13,8 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class HueConfigurator(ParentConfigurator):
-    """Interactive configurator used to register new Hue lights."""
-
     def __init__(self, config_file: str = "hue_configuration.json") -> None:
         super().__init__(config_file)
         self.config.setdefault("hue_lights", [])

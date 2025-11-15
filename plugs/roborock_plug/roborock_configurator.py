@@ -32,7 +32,7 @@ class RoborockConfigurator(ParentConfigurator):
                 "Install the dependency or run inside the configured environment."
             )
 
-        self.vacuum = RoborockVacuum(self.ip, self.token)
+        self.vacuum: RoborockVacuum | None = None
 
     # ------------------------------------------------------------------
     # Public API
@@ -69,17 +69,26 @@ class RoborockConfigurator(ParentConfigurator):
     # Internal helpers
     # ------------------------------------------------------------------
     def _get_rooms_from_map(self) -> List[Dict[str, str]]:
-        try:
+        while True:
             try:
-                mapping = self.vacuum.get_room_mapping()
-            except AttributeError:
-                mapping = self.vacuum.send("get_room_mapping")
-        except Exception as exc:  # pragma: no cover - requires hardware
-            raise RuntimeError(f"Unable to retrieve the room mapping: {exc}") from exc
+                vacuum = self._ensure_vacuum()
+                try:
+                    mapping = vacuum.get_room_mapping()
+                except AttributeError:
+                    mapping = vacuum.send("get_room_mapping")
+            except Exception as exc:  # pragma: no cover - requires hardware
+                if not self._handle_connection_failure(exc):
+                    raise SystemExit("Configuration aborted by user.") from exc
+                continue
 
-        rooms = self._normalize_mapping(mapping)
-        rooms.sort(key=lambda item: int(item["id"]))
-        return rooms
+            rooms = self._normalize_mapping(mapping)
+            rooms.sort(key=lambda item: int(item["id"]))
+            return rooms
+
+    def _ensure_vacuum(self) -> RoborockVacuum:
+        if self.vacuum is None:
+            self.vacuum = RoborockVacuum(self.ip, self.token)
+        return self.vacuum
 
     def _normalize_mapping(self, mapping: object) -> List[Dict[str, str]]:
         if mapping is None:
@@ -108,6 +117,37 @@ class RoborockConfigurator(ParentConfigurator):
                 "name": (name or f"Room {room_id}").strip(),
             })
         return normalized
+
+    def _handle_connection_failure(self, exc: Exception) -> bool:
+        print(f"Unable to communicate with the vacuum: {exc}")
+        print("Choose an option: [r]etry, [e]dit connection settings, [q]uit")
+
+        while True:
+            choice = input("Your choice [r/e/q]: ").strip().lower()
+            if choice in {"", "r", "retry"}:
+                return True
+            if choice in {"e", "edit"}:
+                self._prompt_connection_settings()
+                return True
+            if choice in {"q", "quit"}:
+                return False
+            print("Invalid selection. Please enter 'r', 'e', or 'q'.")
+
+    def _prompt_connection_settings(self) -> None:
+        print("\nUpdate the Roborock connection settings. Leave blank to keep the current value.")
+        new_ip = input(f"Vacuum IP [{self.ip}]: ").strip() or self.ip
+        new_token = input(f"Vacuum token [{self.token}]: ").strip() or self.token
+
+        if new_ip == self.ip and new_token == self.token:
+            print("Connection settings unchanged.")
+            return
+
+        self.ip = new_ip
+        self.token = new_token
+        self.config["ip"] = new_ip
+        self.config["token"] = new_token
+        self.vacuum = None
+        self.save_config_in_file()
 
     @staticmethod
     def _extract_value(source: object, attribute_names: Iterable[str]):

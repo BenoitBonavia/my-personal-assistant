@@ -16,15 +16,13 @@ class GeminiAILLM(LLMInterface):
 
     def add_configuration_file_to_prompt(self, configuration_file):
         self.llm_context = self.llm_context + f"""
-        Ce fichier te permet de prendre connaissance, de la configuration d'un des manager de service auquel tu as accès.
-        Tu peux t'en servir pour prendre connaissance de toute la configuration dont tu pourrais avoir besoin
+        This file describes you the configuration of a service manager you have access to. You can use it to understand how you can use it.
         {configuration_file}
         """
 
-    def add_manager_file_to_prompt(self, manager_file):
+    def add_manager_documentation_to_prompt(self, manager_file):
         self.llm_context = self.llm_context + f"""
-        Ce fichier te permet de prendre connaissance, du manager de service auquel tu as accès
-        Tu peux l'utiliser pour t'aider à reconnaître la commande vocale à exécuter etc... chaque méthode documentée est utilisable etc...
+        This file describes you all the functions you can use from a specific service manager, with their parameters and descriptions.
         {manager_file}
         """
 

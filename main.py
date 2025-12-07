@@ -115,5 +115,6 @@ def __setup_logging():
 
 if __name__ == "__main__":
     __setup_logging()
+
     my_instance = Main()
     my_instance.main()

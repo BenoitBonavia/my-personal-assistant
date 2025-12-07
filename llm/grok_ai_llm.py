@@ -70,7 +70,7 @@ class GrokAiLLM(LLMInterface):
         {configuration_file}"""
         )
 
-    def add_manager_file_to_prompt(self, manager_file):
+    def add_manager_documentation_to_prompt(self, manager_file):
         self._append_system_message(
             f"""Ce fichier te permet de prendre connaissance, du manager de service auquel tu as accès
         Tu peux l'utiliser pour t'aider à reconnaître la commande vocale à exécuter etc... chaque méthode documentée est utilisable etc...

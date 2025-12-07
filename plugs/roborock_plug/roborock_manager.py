@@ -22,6 +22,9 @@ class RoborockManager(ParentManager):
             self.token = self.config.get('token')
         if RoborockVacuum is not None:
             self.vacuum = RoborockVacuum(self.ip, self.token)
+            # result = self.vacuum.get_room_mapping()
+            # self.vacuum.segment_clean(segments=[21], repeat=1)
+            # print(result)
         else:
             self.vacuum = None
 

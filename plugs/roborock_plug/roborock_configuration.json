@@ -6,11 +6,11 @@
   "rooms": [
     {
       "id": 16,
-      "name": "Cuisine"
+      "name": "Chambre"
     },
     {
       "id": 17,
-      "name": "Chambre"
+      "name": "Cuisine"
     },
     {
       "id": 18,

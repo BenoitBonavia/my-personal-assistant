@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 
 class LLMInterface(ABC):
-    llm_context = f"""
+    llm_context = """
                 You are a voice assistant. Your job is to interpret a single user utterance and map it to one or more commands.
 
                 You have the full list of available managers and their commands, with names, descriptions and parameters.  

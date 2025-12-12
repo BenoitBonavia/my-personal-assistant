@@ -1,0 +1,26 @@
+{
+    "name": "PlexManager",
+    "description": "Manage the Plex Media Server and connected clients.",
+    "functions": [
+        {
+            "name": "get_clients",
+            "params": [],
+            "usage": "Get list of clients connected to the Plex server."
+        },
+        {
+            "name": "search_media",
+            "params": [
+                "title: str"
+            ],
+            "usage": "Search for a media by title across libraries."
+        },
+        {
+            "name": "play_media",
+            "params": [
+                "client_name: str",
+                "media_title: str"
+            ],
+            "usage": "Play the specified media on the given client."
+        }
+    ]
+}
